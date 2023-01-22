@@ -29,7 +29,7 @@ def english_to_french(english_text):
         english_text,
         model_id='en-fr').get_result()
         french_text = translation['translations'][0]['translation']
-        result = french_text if french_text != english_text.capitalize() else 'No translation'
+        result = french_text if french_text != english_text.capitalize() else english_text + ' (No translation)'
     else:
         result = str(english_text) + ' (No translation)'
     return result
@@ -43,7 +43,7 @@ def french_to_english(french_text):
         french_text,
         model_id='fr-en').get_result()
         english_text = translation['translations'][0]['translation']
-        result = english_text if english_text != french_text.capitalize() else 'No translation'
+        result = english_text if english_text != french_text.capitalize() else french_text + ' (No translation)'
     else:
         result = str(french_text) + ' (No translation)'
     return result
