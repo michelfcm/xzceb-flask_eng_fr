@@ -18,21 +18,24 @@ language_translator = LanguageTranslatorV3(
 
 language_translator.set_service_url(url)
 
-# languages = language_translator.list_languages().get_result()
-# print(json.dumps(languages, indent=2))
-
 def englishToFrench(englishText):
-    translation = language_translator.translate(
-    englishText,
-    model_id='en-fr').get_result()
-    return (translation['translations'][0]['translation'])
-
-print(englishToFrench('United States of America'))
+    if(type(englishText) == str):
+        translation = language_translator.translate(
+        englishText,
+        model_id='en-fr').get_result()
+        frenchText = translation['translations'][0]['translation']
+        result = frenchText if frenchText != englishText.capitalize() else 'No translation'
+    else:
+        result = 'No translation'
+    return result 
 
 def frenchToEnglish(frenchText):
-    translation = language_translator.translate(
-    frenchText,
-    model_id='fr-en').get_result()
-    return (translation['translations'][0]['translation'])
-
-print(frenchToEnglish("États-Unis d'Amérique"))
+    if(type(frenchText) == str):
+        translation = language_translator.translate(
+        frenchText,
+        model_id='fr-en').get_result()
+        englishText = translation['translations'][0]['translation']
+        result = englishText if englishText != frenchText.capitalize() else 'No translation'
+    else:
+        result = 'No translation'
+    return result
