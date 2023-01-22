@@ -1,7 +1,9 @@
-import json
+"""
+Module to tranlate words and phrases
+"""
+import os
 from ibm_watson import LanguageTranslatorV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,24 +20,30 @@ language_translator = LanguageTranslatorV3(
 
 language_translator.set_service_url(url)
 
-def englishToFrench(englishText):
-    if(type(englishText) == str):
+def english_to_french(english_text):
+    """
+    This function translates english to french
+    """
+    if isinstance(english_text, str):
         translation = language_translator.translate(
-        englishText,
+        english_text,
         model_id='en-fr').get_result()
-        frenchText = translation['translations'][0]['translation']
-        result = frenchText if frenchText != englishText.capitalize() else 'No translation'
+        french_text = translation['translations'][0]['translation']
+        result = french_text if french_text != english_text.capitalize() else 'No translation'
     else:
-        result = 'No translation'
-    return result 
+        result = str(english_text) + ' (No translation)'
+    return result
 
-def frenchToEnglish(frenchText):
-    if(type(frenchText) == str):
+def french_to_english(french_text):
+    """
+    This function translates french to english
+    """
+    if isinstance(french_text, str):
         translation = language_translator.translate(
-        frenchText,
+        french_text,
         model_id='fr-en').get_result()
-        englishText = translation['translations'][0]['translation']
-        result = englishText if englishText != frenchText.capitalize() else 'No translation'
+        english_text = translation['translations'][0]['translation']
+        result = english_text if english_text != french_text.capitalize() else 'No translation'
     else:
-        result = 'No translation'
+        result = str(french_text) + ' (No translation)'
     return result
